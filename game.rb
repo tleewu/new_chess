@@ -8,10 +8,11 @@ class Game
   end
 
   def run
-    while true
+    until @board.checkmate?(:white) || @board.checkmate?(:black)
       take_turn
     end
-    puts "Hooray, the board is filled!"
+    @display.render
+    puts "Game over!"
   end
 
   private
@@ -23,6 +24,10 @@ class Game
       @board.move(start_pos, end_pos)
     rescue NoPieceError
       puts "There's no piece there, try again!"
+      sleep(1)
+      retry
+    rescue CantMoveIntoCheckError
+      puts "You can't move yourself into check, try again!"
       sleep(1)
       retry
     rescue InvalidMoveError

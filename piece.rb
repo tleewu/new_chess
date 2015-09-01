@@ -1,6 +1,6 @@
 class Piece
 
-  attr_reader :color, :mark
+  attr_reader :color, :mark, :position
 
   def initialize(board, position, mark, color)
     @board = board
@@ -23,10 +23,6 @@ class Piece
 
   def moves
     "WRITE"
-  end
-
-  def dup
-    self.class.new(@board, @position, @color)
   end
 
   def in_check?(pot_pos)

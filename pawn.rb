@@ -14,25 +14,23 @@ class Pawn < Piece
       attack_one = [x-1,y+1]
       attack_two = [x-1,y-1]
 
-      if @board.piece_at_position(attack_one).color == :black
+      if @board.piece_exist?(attack_one) && @board.piece_at_position(attack_one).color == :black
         possible_moves << attack_one
       end
 
-      if @board.piece_at_position(attack_two).color == :black
+      if @board.piece_exist?(attack_two) && @board.piece_at_position(attack_two).color == :black
         possible_moves << attack_two
       end
 
-      # Should be refactored. This is ugly
       if @moved
         unless @board.piece_exist?([x - 1, y])
           possible_moves << [x-1,y]
         end
       else
-        @moved = true
         unless @board.piece_exist?([x - 1, y])
-          possible_moves << [x-1,y]
+          possible_moves << [x - 1, y]
           unless @board.piece_exist?([x - 2, y])
-            possible_moves << [x-2,y]
+            possible_moves << [x - 2, y]
           end
         end
       end
@@ -53,8 +51,6 @@ class Pawn < Piece
           possible_moves << [x+1,y]
         end
       else
-
-
         unless @board.piece_exist?([x + 1, y])
           possible_moves << [x + 1, y]
           unless @board.piece_exist?([x + 2, y])
