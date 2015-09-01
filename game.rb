@@ -12,7 +12,7 @@ class Game
       take_turn
     end
     @display.render
-    puts "Game over!"
+    puts "Checkmate! Game over!"
   end
 
   private
@@ -22,6 +22,7 @@ class Game
       start_pos = @display.move
       end_pos = @display.move
       @board.move(start_pos, end_pos)
+      @board.swap_color
     rescue NoPieceError
       puts "There's no piece there, try again!"
       sleep(1)
@@ -32,6 +33,10 @@ class Game
       retry
     rescue InvalidMoveError
       puts "Invalid move, try again!"
+      sleep(1)
+      retry
+    rescue WrongColorError
+      puts "It's not your turn! Hand over the keyboard!"
       sleep(1)
       retry
     end

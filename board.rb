@@ -18,6 +18,7 @@ class Board
       @grid = populate
       @captured_white = []
       @captured_black = []
+      @current_color = :white
     else
       @grid = grid
     end
@@ -72,6 +73,7 @@ class Board
   def move(start,end_pos)
     raise NoPieceError unless piece_exist?(start)
     move_piece = @grid[start[0]][start[1]]
+    raise WrongColorError unless move_piece.color == @current_color
     raise CantMoveIntoCheckError if move_piece.in_check?(end_pos)
     self.valid_move?(move_piece, start, end_pos)
 
@@ -84,6 +86,10 @@ class Board
     end
     @grid[end_pos[0]][end_pos[1]] = move_piece
     move_piece.update_pos(end_pos)
+  end
+
+  def swap_color
+    @current_color = other_color(@current_color)
   end
 
   def move!(start,end_pos)
@@ -185,4 +191,7 @@ class InvalidMoveError < StandardError
 end
 
 class CantMoveIntoCheckError < StandardError
+end
+
+class WrongColorError < StandardError
 end
