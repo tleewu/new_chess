@@ -5,10 +5,9 @@ require_relative "slideable"
 class Rook < Piece
   include Slideable
 
-  def initialize(position, board)
-    @mark = " R "
-    @position = position
-    @board = board
+  def initialize(board,position,color)
+    mark = color == :white ? " " + "\u2656".encode + " " : " " + "\u265C".encode + " "
+    super(board, position, mark, color)
   end
 
   def moves
@@ -27,8 +26,9 @@ class Rook < Piece
     (1...[dx.abs, dy.abs].max).each do |multiplier|
       change = dir.map { |e| e * multiplier }
       step = [change[0] + @position[0] , change[1] + @position[1]]
-      return false if @board.piece_exist?(step)
-      # TODO ADD KILLING OPPOSITE COLOR PIECE BY LOOKING INTO LAST TILE
+      if @board.piece_exist?(step) && @board.piece_at_position(step).color == @color
+        return false
+      end
     end
 
     true

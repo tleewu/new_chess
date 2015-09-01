@@ -1,10 +1,8 @@
 class Pawn < Piece
 
-  def initialize(position, board)
-    @mark = " P "
-    @position = position
-    @moved = false
-    @board = board
+  def initialize(board,position,color)
+    mark = color == :white ? " " + "\u2659".encode + " " : " " + "\u265F".encode + " "
+    super(board, position, mark, color)
   end
 
   def moves
@@ -19,6 +17,9 @@ class Pawn < Piece
   end
 
   def valid_move?(pos)
+    if @board.piece_exist?(pos) && @board.piece_at_position(pos).color == @color
+      return false
+    end
     moves.include?(pos)
   end
 

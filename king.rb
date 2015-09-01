@@ -2,10 +2,9 @@ class King < Piece
 
   POSSIBLE_CHANGES = [[0,1], [1,1],[1,0], [1,-1], [0,-1], [-1,-1], [-1,0], [-1,1]]
 
-  def initialize(position, board)
-    @mark = " K "
-    @position = position
-    @board = board
+  def initialize(board,position,color)
+    mark = color == :white ? " " + "\u2654".encode + " " : " " + "\u265A".encode + " "
+    super(board, position, mark, color)
   end
 
   def moves
@@ -19,6 +18,9 @@ class King < Piece
   end
 
   def valid_move?(pos)
+    if @board.piece_exist?(pos) && @board.piece_at_position(pos).color == @color
+      return false
+    end
     moves.include?(pos)
   end
 

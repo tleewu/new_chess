@@ -1,8 +1,12 @@
 class Piece
 
-  def initialize(mark, position)
-    @mark = mark
+  attr_reader :color, :mark
+
+  def initialize(board, position, mark, color)
+    @board = board
     @position = position
+    @mark = mark
+    @color = color
   end
 
   def to_s

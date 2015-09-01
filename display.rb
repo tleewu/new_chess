@@ -30,15 +30,15 @@ class Display
     else
       bg = :green
     end
-    { background: bg, color: :white }
+    { background: bg, color: @board.piece_at_position([i,j]).color }
   end
 
   def render
     system("clear")
     puts "Arrow keys, WASD, or vim to move, space or enter to confirm."
-    puts "    " + ("A".."H").to_a.join("  ")
-    build_grid.each_with_index { |row,row_idx| puts "#{row_idx}  " + row.join + "  #{row_idx}" }
-    puts "    " + ("A".."H").to_a.join("  ")
+    puts "   " + ("A".."H").to_a.join("  ") + "   " + @board.captured_white.join("")
+    build_grid.each_with_index { |row,row_idx| puts "#{row_idx} " + row.join + " #{row_idx}" }
+    puts "   " + ("A".."H").to_a.join("  ") + "   " + @board.captured_black.join(" ")
   end
 
   def move
