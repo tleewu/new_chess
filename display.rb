@@ -39,6 +39,7 @@ class Display
     puts "   " + ("A".."H").to_a.join("  ") + "   " + @board.captured_white.join("")
     build_grid.each_with_index { |row,row_idx| puts "#{row_idx} " + row.join + " #{row_idx}" }
     puts "   " + ("A".."H").to_a.join("  ") + "   " + @board.captured_black.join(" ")
+    puts "White in check? #{@board.check?(:white)}  Black in check? #{@board.check?(:black)}"
   end
 
   def move

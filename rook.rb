@@ -16,6 +16,7 @@ class Rook < Piece
 
   def valid_move?(new_pos)
     return false unless moves.include?(new_pos)
+    took_piece = false
     dx = new_pos[0] - @position[0]
     dy = new_pos[1] - @position[1]
     if dx.zero?
@@ -23,11 +24,16 @@ class Rook < Piece
     else
       dir = [dx / dx.abs, 0]
     end
-    (1...[dx.abs, dy.abs].max).each do |multiplier|
+    (1..[dx.abs, dy.abs].max).each do |multiplier|
+      return false if took_piece
       change = dir.map { |e| e * multiplier }
       step = [change[0] + @position[0] , change[1] + @position[1]]
-      if @board.piece_exist?(step) && @board.piece_at_position(step).color == @color
-        return false
+      if @board.piece_exist?(step)
+        if @board.piece_at_position(step).color == @color
+          return false
+        elsif @board.piece_at_position(step).color == @board.other_color(@color)
+          took_piece = true
+        end
       end
     end
 

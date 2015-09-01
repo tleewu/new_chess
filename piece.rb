@@ -24,4 +24,22 @@ class Piece
   def moves
     "WRITE"
   end
+
+  def dup
+    self.class.new(@board, @position, @color)
+  end
+
+  def in_check?(pot_pos)
+    dup_board = @board.dup
+    dup_board.move!(@position, pot_pos)
+    dup_board.check?(@color)
+  end
+
+  def other_color(color)
+    if color == :white
+      return :black
+    else
+      return :white
+    end
+  end
 end
