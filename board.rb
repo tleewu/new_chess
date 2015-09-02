@@ -32,15 +32,16 @@ class Board
       end
     end
     # pop_grid[7][7] = Piece.new(" X ",[7,7])
+'''
     pop_grid[0][0] = Rook.new(self, [0,0], :black)
     pop_grid[0][1] = Knight.new(self, [0,1], :black)
-    pop_grid[0][2] = Bishop.new(self, [0,2], :black)
+    pop_grid[0][2] = Bishop.new(self, [0,2], :black)'''
     pop_grid[0][3] = King.new(self, [0,3], :black)
     pop_grid[0][4] = Queen.new(self, [0,4], :black)
     pop_grid[0][5] = Bishop.new(self, [0,5], :black)
     pop_grid[0][6] = Knight.new(self, [0,6], :black)
     pop_grid[0][7] = Rook.new(self, [0,7], :black)
-
+'''
     pop_grid[1][0] = Pawn.new(self, [1,0], :black)
     pop_grid[1][1] = Pawn.new(self, [1,1], :black)
     pop_grid[1][2] = Pawn.new(self, [1,2], :black)
@@ -49,7 +50,7 @@ class Board
     pop_grid[1][5] = Pawn.new(self, [1,5], :black)
     pop_grid[1][6] = Pawn.new(self, [1,6], :black)
     pop_grid[1][7] = Pawn.new(self, [1,7], :black)
-
+'''
     pop_grid[7][0] = Rook.new(self, [7,0], :white)
     pop_grid[7][1] = Knight.new(self, [7,1], :white)
     pop_grid[7][2] = Bishop.new(self, [7,2], :white)
@@ -85,7 +86,7 @@ class Board
 
     end
     @grid[end_pos[0]][end_pos[1]] = move_piece
-    move_piece.update_pos(end_pos)
+    move_piece.update_pos(end_pos, true)
   end
 
   def swap_color

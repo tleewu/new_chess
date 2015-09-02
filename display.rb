@@ -7,6 +7,7 @@ class Display
   def initialize(board)
     @board = board
     @cursor_pos = [0, 0]
+    @highlights = []
   end
 
   def build_grid
@@ -25,6 +26,8 @@ class Display
   def colors_for(i, j)
     if [i, j] == @cursor_pos
       bg = :light_red
+    elsif @highlights.include?([i,j])
+      bg = :yellow
     elsif (i + j).odd?
       bg = :light_blue
     else
@@ -33,7 +36,19 @@ class Display
     { background: bg, color: @board.piece_at_position([i,j]).color }
   end
 
+  def show_options(pos)
+    piece = @board.piece_at_position(pos)
+    moves = piece.moves
+    @highlights = moves
+    render
+  end
+
+  def reset
+    @highlights = []
+  end
+
   def render
+
     system("clear")
     puts "Arrow keys to move, space or enter to confirm."
     puts "   " + ("A".."H").to_a.join("  ") + "   " + @board.captured_white.join("")

@@ -17,12 +17,12 @@ class Piece
     "WRITE"
   end
 
-  def update_pos(new_pos)
+  def update_pos(new_pos, upgrade = false)
     @position = new_pos
   end
 
   def moves
-    "WRITE"
+    []
   end
 
   def in_check?(pot_pos)

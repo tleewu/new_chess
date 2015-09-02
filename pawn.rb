@@ -6,6 +6,14 @@ class Pawn < Piece
     @moved = false
   end
 
+  def update_pos(new_pos, upgrade = false)
+    @position = new_pos
+    if new_pos[0] == 0 || new_pos[0] == 7
+      upgrade_pawn if upgrade
+    end
+    @moved = true
+  end
+
   def moves
     # Need to split up into attack moves and forward moves
     x,y = @position
@@ -69,4 +77,19 @@ class Pawn < Piece
     moves.include?(pos)
   end
 
+  def upgrade_pawn
+    puts "Your pawn has made it! What piece would you like?"
+    puts "Select N/Knight, B/Bishop, R/Rook, Q/Queen"
+
+    case gets.chomp[0].downcase
+    when "n"
+      @board[@position] = Knight.new(@board,@position,@color)
+    when "b"
+      @board[@position] = Bishop.new(@board,@position,@color)
+    when "r"
+      @board[@position] = Rook.new(@board,@position,@color)
+    when "q"
+      @board[@position] = Queen.new(@board,@position,@color)
+    end
+  end
 end

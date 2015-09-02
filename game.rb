@@ -19,9 +19,12 @@ class Game
 
   def take_turn
     begin
+      @display.reset
       start_pos = @display.move
+      @display.show_options(start_pos)
       end_pos = @display.move
       @board.move(start_pos, end_pos)
+      @display.reset
       @board.swap_color
     rescue NoPieceError
       puts "There's no piece there, try again!"
