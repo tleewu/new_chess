@@ -39,6 +39,7 @@ class Display
   def show_options(pos)
     piece = @board.piece_at_position(pos)
     moves = piece.moves
+    moves = moves.reject {|move| piece.in_check?(move)}
     @highlights = moves
     render
   end
