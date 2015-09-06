@@ -5,6 +5,7 @@ class King < Piece
   def initialize(board,position,color)
     mark = color == :white ? " " + "\u2654".encode + " " : " " + "\u265A".encode + " "
     super(board, position, mark, color)
+    @can_castle = true
   end
 
   def moves

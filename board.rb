@@ -72,25 +72,31 @@ class Board
 
   def move(start,end_pos)
     raise NoPieceError unless piece_exist?(start)
+    
     move_piece = @grid[start[0]][start[1]]
+    
     raise WrongColorError unless move_piece.color == @current_color
     raise CantMoveIntoCheckError if move_piece.in_check?(end_pos)
+    
     self.valid_move?(move_piece, start, end_pos)
 
     @grid[start[0]][start[1]] = EmptyPiece.new(self,[start[0],start[1]])
+    
     if piece_exist?(end_pos)
-
       captured = piece_at_position(end_pos)
       captured.color == :white ? @captured_white << captured.mark : @captured_black << captured.mark
-
     end
+    
     @grid[end_pos[0]][end_pos[1]] = move_piece
     move_piece.update_pos(end_pos, true)
+    #why do we have an "upgrade" boolean variable?
   end
 
   def swap_color
     @current_color = other_color(@current_color)
   end
+
+  #Begin for board dup + dup helper methods
 
   def move!(start,end_pos)
     raise NoPieceError unless piece_exist?(start)
@@ -108,8 +114,16 @@ class Board
         new_grid[i][j] = el.class.new(new_board, [i, j], el.color)
       end
     end
-
     new_board
+  end
+
+  #End of board dup helper methods
+
+  def find_king(color)
+    pieces(color).each do |piece|
+      return piece.position if piece.is_a?(King)
+    end
+    return "Error finding king..."
   end
 
   def check?(color)
@@ -119,6 +133,15 @@ class Board
       el.color == other_color && el.valid_move?(king_position)
     end
   end
+  
+  def checkmate?(color)
+    return false unless check?(color)
+    pieces(color).all? do |piece|
+      piece.moves.all? do |move|
+        piece.in_check?(move)
+      end
+    end
+  end
 
   def other_color(color)
     if color == :white
@@ -126,13 +149,6 @@ class Board
     else
       return :white
     end
-  end
-
-  def find_king(color)
-    pieces(color).each do |piece|
-      return piece.position if piece.is_a?(King)
-    end
-    return "Error finding king..."
   end
 
   def valid_move?(piece, start, end_pos)
@@ -173,14 +189,7 @@ class Board
     @grid.flatten.select {|piece| piece.color == color}
   end
 
-  def checkmate?(color)
-    return false unless check?(color)
-    pieces(color).all? do |piece|
-      piece.moves.all? do |move|
-        piece.in_check?(move)
-      end
-    end
-  end
+
 
 end
 
