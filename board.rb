@@ -51,12 +51,12 @@ class Board
     pop_grid[1][7] = Pawn.new(self, [1,7], :black)
 
     pop_grid[7][0] = Rook.new(self, [7,0], :white)
-#    pop_grid[7][1] = Knight.new(self, [7,1], :white)
-#    pop_grid[7][2] = Bishop.new(self, [7,2], :white)
+    pop_grid[7][1] = Knight.new(self, [7,1], :white)
+    pop_grid[7][2] = Bishop.new(self, [7,2], :white)
     pop_grid[7][3] = King.new(self, [7,3], :white)
-#    pop_grid[7][4] = Queen.new(self, [7,4], :white)
-#    pop_grid[7][5] = Bishop.new(self, [7,5], :white)
-#    pop_grid[7][6] = Knight.new(self, [7,6], :white)
+    pop_grid[7][4] = Queen.new(self, [7,4], :white)
+    pop_grid[7][5] = Bishop.new(self, [7,5], :white)
+    pop_grid[7][6] = Knight.new(self, [7,6], :white)
     pop_grid[7][7] = Rook.new(self, [7,7], :white)
 
     pop_grid[6][0] = Pawn.new(self, [6,0], :white)
