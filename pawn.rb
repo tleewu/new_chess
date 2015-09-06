@@ -15,56 +15,31 @@ class Pawn < Piece
   end
 
   def moves
-    # Need to split up into attack moves and forward moves
+
     x,y = @position
     possible_moves = []
+    
     if @color == :white
-      attack_one = [x-1,y+1]
-      attack_two = [x-1,y-1]
+      attack = [[x-1,y+1],[x-1,y-1]]
 
-      if @board.piece_exist?(attack_one) && @board.piece_at_position(attack_one).color == :black
-        possible_moves << attack_one
+      unless @board.piece_exist?([x - 1, y])
+        possible_moves << [x-1,y]
+        possible_moves << [x-2,y] unless @moved || @board.piece_exist?([x - 2, y])
       end
-
-      if @board.piece_exist?(attack_two) && @board.piece_at_position(attack_two).color == :black
-        possible_moves << attack_two
-      end
-
-      if @moved
-        unless @board.piece_exist?([x - 1, y])
-          possible_moves << [x-1,y]
-        end
-      else
-        unless @board.piece_exist?([x - 1, y])
-          possible_moves << [x - 1, y]
-          unless @board.piece_exist?([x - 2, y])
-            possible_moves << [x - 2, y]
-          end
-        end
-      end
+      
     else
-      attack_one = [x+1,y+1]
-      attack_two = [x+1,y-1]
+      attack = [[x+1,y+1],[x+1,y-1]]
 
-      if @board.piece_exist?(attack_one) && @board.piece_at_position(attack_one).color == :white
-        possible_moves << attack_one
+      unless @board.piece_exist?([x+1, y])
+        possible_moves << [x+1,y]
+        possible_moves << [x+2,y] unless @moved || @board.piece_exist?([x + 2, y])
       end
 
-      if @board.piece_exist?(attack_two) && @board.piece_at_position(attack_two).color == :white
-        possible_moves << attack_two
-      end
-
-      if @moved
-        unless @board.piece_exist?([x + 1, y])
-          possible_moves << [x+1,y]
-        end
-      else
-        unless @board.piece_exist?([x + 1, y])
-          possible_moves << [x + 1, y]
-          unless @board.piece_exist?([x + 2, y])
-            possible_moves << [x + 2, y]
-          end
-        end
+    end
+    
+    attack.each do |attack_pos|
+      if @board.piece_exist?(attack_pos) && @board.piece_at_position(attack_pos).color == other_color(@color)
+        possible_moves << attack_pos
       end
     end
 

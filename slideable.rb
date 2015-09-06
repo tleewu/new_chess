@@ -12,6 +12,7 @@ module Slideable
       end
     end
 
+    available_moves.delete(pos)
     available_moves
   end
 
@@ -24,6 +25,7 @@ module Slideable
       available_moves << [x, y + i] if (0...8).include?(y + i) && (0...8).include?(x)
     end
 
+    available_moves.delete(pos)
     available_moves
   end
 end

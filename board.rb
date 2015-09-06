@@ -31,7 +31,6 @@ class Board
         pop_grid[row_idx][col_idx] = EmptyPiece.new(self,[row_idx,col_idx])
       end
     end
-    # pop_grid[7][7] = Piece.new(" X ",[7,7])
 
     pop_grid[0][0] = Rook.new(self, [0,0], :black)
     pop_grid[0][1] = Knight.new(self, [0,1], :black)

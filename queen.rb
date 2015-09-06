@@ -16,11 +16,11 @@ class Queen < Piece
 
     straight_lines = diagonal(@position)
     straight_lines.each do |new_pos|
-      next if new_pos == @position
       seen_piece = false
       dx = new_pos[0] - @position[0]
       dy = new_pos[1] - @position[1]
       dir = [dx / dx.abs, dy / dy.abs]
+      
       (1..dx.abs).each do |multiplier|
         break if seen_piece
         change = dir.map { |e| e * multiplier }
@@ -38,7 +38,6 @@ class Queen < Piece
 
     straight_lines = horizontal(@position)
     straight_lines.each do |new_pos|
-      next if new_pos == @position
       seen_piece = false
       dx = new_pos[0] - @position[0]
       dy = new_pos[1] - @position[1]

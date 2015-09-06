@@ -8,8 +8,10 @@ class King < Piece
   end
 
   def moves
+    
     possible_moves = []
     x, y = @position
+    
     POSSIBLE_CHANGES.each do |change|
       update_position = [change[0] + x, change[1] + y]
       if @board.piece_exist?(update_position)
