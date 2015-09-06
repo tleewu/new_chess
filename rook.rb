@@ -3,11 +3,14 @@ require_relative "slideable"
 
 
 class Rook < Piece
+  attr_reader :can_castle
+  
   include Slideable
 
   def initialize(board,position,color)
     mark = color == :white ? " " + "\u2656".encode + " " : " " + "\u265C".encode + " "
     super(board, position, mark, color)
+    @can_castle = true
   end
 
   def moves
@@ -44,6 +47,11 @@ class Rook < Piece
 
   def valid_move?(new_pos)
     moves.include?(new_pos)
+  end
+  
+  def update_pos(new_pos, upgrade = false)
+    @position = new_pos
+    @can_castle = false
   end
 
 end
