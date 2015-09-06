@@ -1,7 +1,9 @@
 class King < Piece
 
   POSSIBLE_CHANGES = [[0,1], [1,1],[1,0], [1,-1], [0,-1], [-1,-1], [-1,0], [-1,1]]
-
+  
+  attr_reader :can_castle
+  
   def initialize(board,position,color)
     mark = color == :white ? " " + "\u2654".encode + " " : " " + "\u265A".encode + " "
     super(board, position, mark, color)
@@ -25,7 +27,7 @@ class King < Piece
     end
     
     #Castling feature
-    if @can_castle && @board.check?(@color)
+    if @can_castle 
       #King side
       rook = @board.piece_at_position([@position[0], 0])
       if rook.is_a?(Rook) && rook.can_castle 

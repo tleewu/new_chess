@@ -38,11 +38,16 @@ class Game
       puts "Invalid move, try again!"
       sleep(1)
       retry
+    rescue CannotCastleInCheckError
+      puts "You cannot castle when you are in check, try again!"
+      sleep(1)
+      retry
     rescue WrongColorError
       puts "It's not your turn! Hand over the keyboard!"
       sleep(1)
       retry
     end
+    
   end
 end
 

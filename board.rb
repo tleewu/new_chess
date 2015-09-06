@@ -77,6 +77,12 @@ class Board
     
     raise WrongColorError unless move_piece.color == @current_color
     raise CantMoveIntoCheckError if move_piece.in_check?(end_pos)
+        
+    if move_piece.is_a?(King) && move_piece.can_castle
+      if end_pos[1] == 1 || end_pos[1] == 5
+        raise CannotCastleInCheckError if check?(move_piece.color) 
+      end
+    end
     
     self.valid_move?(move_piece, start, end_pos)
 
@@ -88,6 +94,7 @@ class Board
     end
     
     @grid[end_pos[0]][end_pos[1]] = move_piece
+
     move_piece.update_pos(end_pos, true)
     #why do we have an "upgrade" boolean variable?
   end
@@ -207,4 +214,7 @@ class CantMoveIntoCheckError < StandardError
 end
 
 class WrongColorError < StandardError
+end
+
+class CannotCastleInCheckError < StandardError
 end
