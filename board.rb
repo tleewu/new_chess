@@ -195,6 +195,7 @@ class Board
   end
 
   def in_bounds?(pos)
+    return false if pos.nil?
     pos.all? { |x| (0..7).include?(x) }
   end
 
