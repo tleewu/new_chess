@@ -11,7 +11,7 @@ require_relative "pawn"
 
 class Board
 
-  attr_reader :captured_white, :captured_black
+  attr_reader :captured_white, :captured_black, :current_color
 
   def initialize(new_game = true, grid = nil)
     if new_game
@@ -72,33 +72,32 @@ class Board
 
   def move(start,end_pos)
     raise NoPieceError unless piece_exist?(start)
-    
+
     move_piece = @grid[start[0]][start[1]]
-    
+
     raise WrongColorError unless move_piece.color == @current_color
     raise CantMoveIntoCheckError if move_piece.in_check?(end_pos)
-        
+
     if move_piece.is_a?(King) && move_piece.can_castle
       if end_pos[1] == 1 || end_pos[1] == 5
-        raise CannotCastleInCheckError if check?(move_piece.color) 
+        raise CannotCastleInCheckError if check?(move_piece.color)
       end
     end
-    
+
     self.valid_move?(move_piece, start, end_pos)
 
     @grid[start[0]][start[1]] = EmptyPiece.new(self,[start[0],start[1]])
-    
+
     if piece_exist?(end_pos)
       captured = piece_at_position(end_pos)
       captured.color == :white ? @captured_white << captured.mark : @captured_black << captured.mark
     end
-    
+
     @grid[end_pos[0]][end_pos[1]] = move_piece
 
     move_piece.update_pos(end_pos, true)
-    #why do we have an "upgrade" boolean variable?
   end
-  
+
   def move_rook_castling(rook,start,new_pos)
     self[start] = EmptyPiece.new(self,start)
     self[new_pos] = rook
@@ -108,8 +107,6 @@ class Board
   def swap_color
     @current_color = other_color(@current_color)
   end
-
-  #Begin for board dup + dup helper methods
 
   def move!(start,end_pos)
     raise NoPieceError unless piece_exist?(start)
@@ -146,7 +143,7 @@ class Board
       el.color == other_color && el.valid_move?(king_position)
     end
   end
-  
+
   def checkmate?(color)
     return false unless check?(color)
     pieces(color).all? do |piece|

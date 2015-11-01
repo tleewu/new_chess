@@ -2,11 +2,11 @@ require_relative "board"
 require_relative "display"
 
 class HumanPlayer < Player
-  def initialize(board, display)
-    super(board,:white)
+  def initialize(board, color, display)
+    super(board, color)
     @display = display
   end
-  
+
   def move
     @display.reset
     start_pos = @display.move
@@ -36,6 +36,6 @@ class HumanPlayer < Player
       sleep(1)
       retry
   end
-  
+
 
 end
