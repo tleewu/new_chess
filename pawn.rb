@@ -18,7 +18,7 @@ class Pawn < Piece
 
     x,y = @position
     possible_moves = []
-    
+
     if @color == :white
       attack = [[x-1,y+1],[x-1,y-1]]
 
@@ -26,7 +26,7 @@ class Pawn < Piece
         possible_moves << [x-1,y]
         possible_moves << [x-2,y] unless @moved || @board.piece_exist?([x - 2, y])
       end
-      
+
     else
       attack = [[x+1,y+1],[x+1,y-1]]
 
@@ -36,7 +36,7 @@ class Pawn < Piece
       end
 
     end
-    
+
     attack.each do |attack_pos|
       if @board.piece_exist?(attack_pos) && @board.piece_at_position(attack_pos).color == other_color(@color)
         possible_moves << attack_pos
@@ -53,17 +53,22 @@ class Pawn < Piece
   end
 
   def upgrade_pawn
-    puts "Your pawn has made it! What piece would you like?"
-    puts "Select N/Knight, B/Bishop, R/Rook, Q/Queen"
 
-    case gets.chomp[0].downcase
-    when "n"
-      @board[@position] = Knight.new(@board,@position,@color)
-    when "b"
-      @board[@position] = Bishop.new(@board,@position,@color)
-    when "r"
-      @board[@position] = Rook.new(@board,@position,@color)
-    when "q"
+    if @current_player.class == HumanPlayer
+      puts "Your pawn has made it! What piece would you like?"
+      puts "Select N/Knight, B/Bishop, R/Rook, Q/Queen"
+
+      case gets.chomp[0].downcase
+      when "n"
+        @board[@position] = Knight.new(@board,@position,@color)
+      when "b"
+        @board[@position] = Bishop.new(@board,@position,@color)
+      when "r"
+        @board[@position] = Rook.new(@board,@position,@color)
+      when "q"
+        @board[@position] = Queen.new(@board,@position,@color)
+      end
+    else
       @board[@position] = Queen.new(@board,@position,@color)
     end
   end

@@ -12,6 +12,7 @@ class ComputerPlayer < Player
 
   def best_move
     if @board.check?(:black)
+      move_king_at_last_resort = []
       @board.pieces(:black).each do |piece|
         piece.moves.each do |move|
           dup_board = @board.dup
@@ -25,8 +26,7 @@ class ComputerPlayer < Player
           end
         end
       end
-
-
+      move_king_at_last_resort
     else
       if can_take_piece.empty?
         move_closest_to_king
@@ -80,7 +80,7 @@ class ComputerPlayer < Player
             point_value = 10
           end
 
-          point_value -= check_if_attacked(piece, move) if check_if_attacked(piece,move).nil?
+          point_value -= check_if_attacked(piece, move) unless check_if_attacked(piece,move).nil?
 
           if point_value > max_point_value
             max_point_value = point_value
