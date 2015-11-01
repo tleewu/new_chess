@@ -127,8 +127,6 @@ class Board
     new_board
   end
 
-  #End of board dup helper methods
-
   def find_king(color)
     pieces(color).each do |piece|
       return piece.position if piece.is_a?(King)
