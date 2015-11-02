@@ -1,6 +1,6 @@
 # Chess
 
-I am an absolutely chess geek. You can look up my USCF profile on www.uschess.org and search for Wu, Theodore L.
+I am an absolutely huge chess geek. You can look up my USCF profile on www.uschess.org and search for Wu, Theodore L.
 
 ### How to Play
 1. Make sure you have Ruby installed. Check out this [tutorial] (www.installrails.com).
@@ -11,11 +11,11 @@ I am an absolutely chess geek. You can look up my USCF profile on www.uschess.or
 ### Basic Concepts
 Multi-level class inheritance and DRY code facilitates the process for
 * Highlighting a piece's valid moves
-<br><img src = "images/all-moves.png" height="250px" width="250px" />
+<br><img src = "images/all-moves.png" height="250px" width="350px" />
 * Handling a variety of errors, such as an illegal move, a move in check, or not-your-turn move.
-<br> <img src = "images/error-handling.png" height="250px" width="250px" />
+<br> <img src = "images/error-handling.png" height="250px" width="350px" />
 * Storing captured pieces
-<br> <img src = "images/pieces.png" height="250px" width="250px" />
+<br> <img src = "images/pieces.png" height="250px" width="350px" />
 
 ### The Cooler Stuff: Building out the AI
 
