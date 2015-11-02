@@ -11,11 +11,11 @@ I am an absolutely chess geek. You can look up my USCF profile on www.uschess.or
 ### Basic Concepts
 Multi-level class inheritance and DRY code facilitates the process for
 * Highlighting a piece's valid moves
-<img src = "images/all-moves.png" height="100px" width="100px" />
+<br><img src = "images/all-moves.png" height="250px" width="250px" />
 * Handling a variety of errors, such as an illegal move, a move in check, or not-your-turn move.
-<img src = "images/error-handling.png" height="100px" width="100px" />
+<br> <img src = "images/error-handling.png" height="250px" width="250px" />
 * Storing captured pieces
-<img src = "images/pieces.png" height="100px" width="100px" />
+<br> <img src = "images/pieces.png" height="250px" width="250px" />
 
 ### The Cooler Stuff: Building out the AI
 
